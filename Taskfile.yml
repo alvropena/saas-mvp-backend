@@ -1,0 +1,59 @@
+version: '3'
+
+tasks:
+  setup:
+    desc: Setup Python version and create a virtual environment
+    cmds:
+      - pyenv install 3.9.1 -s
+      - pyenv local 3.9.1
+      - python -m venv .venv
+    silent: true
+
+  activate:
+    desc: Activate the virtual environment
+    cmds:
+      - source .venv/bin/activate
+    silent: true
+
+  deactivate:
+    desc: Deactivate the virtual environment
+    cmds:
+      - deactivate
+    silent: true
+
+  remove-venv:
+    desc: Remove the virtual environment
+    cmds:
+      - rm -rf .venv
+    silent: true
+
+  start:
+    desc: Start the FastAPI server
+    cmds:
+      - uvicorn app.main:app --reload
+    silent: true
+
+  test:
+    desc: Run tests (placeholder for your test commands)
+    cmds:
+      - echo "Running tests..."
+    silent: true
+
+  lint:
+    desc: Run Pylint to check for errors and enforce coding standards
+    cmds:
+      - pylint app/
+    silent: true
+
+  pep8:
+    desc: Run flake8 to check for PEP8 compliance
+    cmds:
+      - flake8 app/
+    silent: true
+
+  format:
+    desc: Check code formatting and compliance with PEP8 and linting
+    cmds:
+      - task: pep8
+      - task: lint
+    silent: true
